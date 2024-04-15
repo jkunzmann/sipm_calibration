@@ -1,0 +1,5 @@
+*.png
+*test*
+test*
+*fitlog*.root
+ascii_fitlog
