@@ -92,9 +92,10 @@ if __name__ == "__main__":
     #folder_path = input("Please put the folder path here: ")
     #file_name = input("Please put the file name here: ")
 
-
-    folder_path = "/home/jan/Universitat_Bern/Doktor/ADC_Viewer/fitlog"
-    file_name = "ascii_fitlog"
+    calib_name = "test1"
+    data_name = "mpd_run_god_013"
+    folder_path = "/home/jan/Universitat_Bern/Doktor/ADC_Viewer/2x2/sipm_calibration/"+calib_name+"/"
+    file_name = data_name+"_ascii_fitlog"
 
     # Final file
     output_file_name = input("Please announce the final file name: ")
@@ -104,4 +105,4 @@ if __name__ == "__main__":
 
     print("The generated file is called: " + output_file_name)
     # Save the data
-    save_data(existing_data, output_file_name)
+    save_data(existing_data, folder_path+output_file_name)
