@@ -90,23 +90,3 @@ class calib:
             print(f"Successfully renamed '{folder_path}' and its contents to '{new_folder_name}'.")
         except Exception as e:
             print("Error:", e)
-
-"""
-if __name__ == "__main__":
-    AFI_viewer = "/home/jan/Universitat_Bern/Doktor/ADC_Viewer/AFIViewer/build/ADC64Viewer"
-    fitlog_path = "/home/jan/Universitat_Bern/Doktor/ADC_Viewer/fitlog"
-    
-    #####only input needed: json file!!
-    json_path = "/home/jan/Universitat_Bern/Doktor/ADC_Viewer/2x2/sipm_calibration/2024.05.08.14.59.25"
-    
-    data_path = "/home/jan/Universitat_Bern/Doktor/ADC_Viewer/"
-    data_name = "mpd_run_god_013.data"
-    calib_path = "/home/jan/Universitat_Bern/Doktor/ADC_Viewer/2x2/sipm_calibration/"
-    calib_name=
-
-    # Run the function
-    run_ADC_viewer(AFI_viewer, data_path+data_name)
-    move_folder(fitlog_path, calib_path, calib_name)
-    rename_folder_and_files(calib_path+calib_name+"/fitlog", calib_path+calib_name, data_name[:-5])
-
-"""
