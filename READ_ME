@@ -1,0 +1,14 @@
+This Python code can be used to convert the files from the .data to the calibration for the gains.
+
+use the command: python3 run_calib_combine_select.py
+
+to run through the full calibration.
+
+You need to make sure that the right .json file is read in, making sure that the full calibration run is taken into account.
+
+The SPE fit parameters can be set here: /global/cfs/cdirs/dune/users/kunzmann/2x2/AFIViewer/build/configs/spepars.cfg
+
+The gate to do the integration on the data can be set here: /global/cfs/cdirs/dune/users/kunzmann/2x2/AFIViewer/build/configs/charge.gt
+
+The settings can be found here: /global/cfs/cdirs/dune/users/kunzmann/2x2/AFIViewer/build/configs/settings.cfg
+

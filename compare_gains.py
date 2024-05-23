@@ -94,18 +94,19 @@ class compare_gains:
             else:
                 return False
 
-    def select_channel_by_JSON_file(channel_name, json_data):
+    def select_channel_by_JSON_file(channel_name, json_data, data_name):
         for entry in json_data:
-            json_adc = entry.get("adc_serials")
-            #print(json_adc)
-            local_json_ch = entry.get("local_channels")
-            for i in range(len(json_adc)):
-                #print(json_adc[i][1:].lower())
-                if(channel_name == 'ChargeLight_'+json_adc[i][1:].lower()+'_ch'+local_json_ch[i]):
-                    #print("TRUE")
-                    return True
-                #else:
-                #    print("FALSE: CH_name" +channel_name +" json name: "+'ChargeLight_'+json_adc[i][1:].lower()+'_ch'+local_json_ch[i])
+            if (data_name == entry.get("calib_run").rsplit('/')[-1]): #name of the *.data file
+                json_adc = entry.get("adc_serials")
+                #print(json_adc)
+                local_json_ch = entry.get("local_channels")
+                for i in range(len(json_adc)):
+                    #print(json_adc[i][1:].lower())
+                    if(channel_name == 'ChargeLight_'+json_adc[i][1:].lower()+'_ch'+local_json_ch[i]):
+                        #print("TRUE")
+                        return True
+                    #else:
+                    #    print("FALSE: CH_name" +channel_name +" json name: "+'ChargeLight_'+json_adc[i][1:].lower()+'_ch'+local_json_ch[i])
             
         return False
 
@@ -158,7 +159,7 @@ class compare_gains:
                 
         return existing_data_dict
 
-    def update_existing_data_w_json(existing_data, new_data, json_data):
+    def update_existing_data_w_json(existing_data, new_data, json_data, data_name):
         #appended = False  # Variable to track if a line has been appended
         # Convert existing_data to a dictionary where the name is the key
         existing_data_dict = {item[1]: (item, item[-1].split(' ')[0]) for item in existing_data}
@@ -168,12 +169,12 @@ class compare_gains:
             chi = float(values[-1].split(' ')[0])
 
             #print("name: ", name)
-            if compare_gains.select_channel_by_JSON_file(name, json_data) == True:
+            if compare_gains.select_channel_by_JSON_file(name, json_data, data_name) == True:
                 if name in existing_data_dict and abs(float(existing_data_dict[name][-1]) - 1) > abs(float(chi) - 1):
                     print("Value better than existing, old value: ", existing_data_dict[name][-1],"new value: ", chi)
                     existing_data_dict[name] = (values, chi)
                 elif name not in existing_data_dict:
-                    print("Name doesn't exist yet and chi is good, appended to the end")
+                    print("Name doesn't exist yet, appended to the end")
                     existing_data_dict[name] = (values, chi)
             else:
                 print("Line is not needed from this fiel for this channel calibration (Channel Calib ID wrong)")
@@ -181,13 +182,13 @@ class compare_gains:
         return existing_data_dict
 
 
-    def process_files(folder_path, file_name, output_file_name, json_data):
+    def process_files(folder_path, file_name, output_file_name, json_data, data_name):
         existing_data = {}
         file_path = os.path.join(folder_path, file_name)
         existing_file_path = os.path.join(folder_path, output_file_name)
         new_data = compare_gains.read_data(file_path)
         existing_data = compare_gains.read_data_existing(existing_file_path)
-        existing_data = compare_gains.update_existing_data_w_json(existing_data, new_data, json_data)
+        existing_data = compare_gains.update_existing_data_w_json(existing_data, new_data, json_data, data_name)
         return existing_data
 
     def save_data(data, output_file):

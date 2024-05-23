@@ -30,7 +30,7 @@ if __name__ == "__main__":
         ascii_file_name = calib_name+"_"+data_name[:-5]+"_ascii_fitlog"
 
         #print(data_path)
-        #print(data_name)
+        print(data_name)
 
 
         # Run the calibration function
@@ -38,11 +38,8 @@ if __name__ == "__main__":
         calib.move_folder(fitlog_path, calib_path, calib_name)
         calib.rename_folder_and_files(calib_path+calib_name+"/fitlog", calib_path+calib_name, calib_name+"_"+data_name[:-5])
 
-
-
-
         # Work on the file
-        existing_data = compare_gains.process_files(calib_path+calib_name+"/", ascii_file_name, output_file_name, json_data)
+        existing_data = compare_gains.process_files(calib_path+calib_name+"/", ascii_file_name, output_file_name, json_data, data_name)
 
         print("The generated file is called: " + output_file_name)
         # Save the data
