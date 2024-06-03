@@ -102,7 +102,7 @@ class compare_gains:
                 local_json_ch = entry.get("local_channels")
                 for i in range(len(json_adc)):
                     #print(json_adc[i][1:].lower())
-                    if(channel_name == 'ChargeLight_'+json_adc[i][1:].lower()+'_ch'+local_json_ch[i]):
+                    if(channel_name == 'ChargeLight_'+json_adc[i][1:].lower()+'_ch'+local_json_ch[i].zfill(2) or channel_name == 'ChargeLight_'+json_adc[i][4:].lower()+'_ch'+local_json_ch[i].zfill(2)):
                         #print("TRUE")
                         return True
                     #else:
