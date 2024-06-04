@@ -1,6 +1,7 @@
 import json
 import shutil
 import os
+import csv
 
 class collect_plots:    
     def select_channel_by_JSON_file(channel_name, json_data, data_name):
@@ -84,6 +85,29 @@ class collect_plots:
             print(f"Error: File '{file_path}' is not a valid JSON file.")
             return None
 
+class gains_collection:
+    def read_calib_file(filename):
+        """
+        Read the contents of the file and return it as a list of lines.
+        """
+        with open(filename, 'r') as file:
+            lines = file.readlines()
+        return lines
+
+    def write_rows(lines, csv_filename):
+        """
+        Print each row from the list of lines.
+        """
+        with open(csv_filename, 'w', newline='') as csvfile:
+            csv_writer = csv.writer(csvfile)
+            # Write a header
+            csv_writer.writerow(['sn','ch','gain','sigma'])
+        
+            for line in lines:
+                parts = line.strip().split(', ')
+                csv_writer.writerow([parts[3], parts[5], parts[23], parts[25]])
+
+
 if __name__ == "__main__":
     #give the json file path with the file name
     json_path = "/home/jan/Universitat_Bern/Doktor/ADC_Viewer/2x2/2024.06.02.13.51.52.json"
@@ -97,7 +121,7 @@ if __name__ == "__main__":
     #print(calib_name)
     plot_collection_path = plot_path+calib_name+"/plot_collection"
     collect_plots.create_directory(plot_collection_path)
-
+    """
     for entry in json_data:
         calib_run_name = entry.get("calib_run").split("/")[-1][:-5]
 
@@ -116,3 +140,9 @@ if __name__ == "__main__":
                 collect_plots.copy_file(file_name2,plot_collection_path)
             else:
                 print("This figure does not exist!!")
+    """
+
+    calib_file_path = plot_path+calib_name+"/"+calib_name+"_calibration"
+    rows= gains_collection.read_calib_file(calib_file_path)
+    gains_collection.write_rows(rows, calib_name+"_calibration.csv")
+    
