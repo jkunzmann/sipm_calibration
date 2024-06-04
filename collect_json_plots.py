@@ -121,7 +121,7 @@ if __name__ == "__main__":
     #print(calib_name)
     plot_collection_path = plot_path+calib_name+"/plot_collection"
     collect_plots.create_directory(plot_collection_path)
-    """
+    
     for entry in json_data:
         calib_run_name = entry.get("calib_run").split("/")[-1][:-5]
 
@@ -140,7 +140,7 @@ if __name__ == "__main__":
                 collect_plots.copy_file(file_name2,plot_collection_path)
             else:
                 print("This figure does not exist!!")
-    """
+    
 
     calib_file_path = plot_path+calib_name+"/"+calib_name+"_calibration"
     rows= gains_collection.read_calib_file(calib_file_path)
