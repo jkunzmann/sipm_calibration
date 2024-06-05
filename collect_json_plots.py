@@ -110,7 +110,11 @@ class gains_collection:
 
 if __name__ == "__main__":
     #give the json file path with the file name
-    json_path = "/home/jan/Universitat_Bern/Doktor/ADC_Viewer/2x2/2024.06.02.13.51.52.json"
+    json_path = "/home/jan/Universitat_Bern/Doktor/ADC_Viewer/2x2/"
+
+    js = input("Give it the json file name only (inc. .json): ")
+    json_path = json_path + js
+
     json_data = collect_plots.read_json_file(json_path)
 
     calib_name= json_path.split('/')[-1][:-5] #takes the same name as the json file
@@ -146,4 +150,5 @@ if __name__ == "__main__":
     rows= gains_collection.read_calib_file(calib_file_path)
     gains_collection.write_rows(rows, plot_path+calib_name+"/"+calib_name+"_calibration.csv")
     print("Calibration csv file was created here: "+plot_path+calib_name+"/"+calib_name+"_calibration.csv")
+    
     
