@@ -144,5 +144,6 @@ if __name__ == "__main__":
 
     calib_file_path = plot_path+calib_name+"/"+calib_name+"_calibration"
     rows= gains_collection.read_calib_file(calib_file_path)
-    gains_collection.write_rows(rows, calib_name+"_calibration.csv")
+    gains_collection.write_rows(rows, plot_path+calib_name+"/"+calib_name+"_calibration.csv")
+    print("Calibration csv file was created here: "+plot_path+calib_name+"/"+calib_name+"_calibration.csv")
     
